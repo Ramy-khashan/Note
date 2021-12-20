@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:note/screens/addingnote/view.dart';
 import 'package:note/screens/homepage/view.dart';
 
 void main() async {
