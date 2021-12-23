@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:note/screens/addingnote/view.dart';
-import 'package:note/screens/homepage/view.dart';
+import 'package:note/screens/splash/view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xffd4a45c),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePageScreen(),
+      home: const SplashScreen(),
     );
   }
 }
