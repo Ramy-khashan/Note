@@ -83,9 +83,8 @@ class HomePageScreen extends StatelessWidget {
                         Icon(Icons.exit_to_app, size: size.shortestSide * .07))
               ],
             ),
-            body: !controller.isDoneLoad
-                ? const Center(child: CircularProgressIndicator())
-                : controller.data.isEmpty
+            body: controller.isDoneLoad
+                ? controller.data.isEmpty
                     ? Center(
                         child: Text("No Note Added",
                             style: TextStyle(
@@ -162,7 +161,8 @@ class HomePageScreen extends StatelessWidget {
                             ),
                           );
                         },
-                      ),
+                      )
+                : const Center(child: CircularProgressIndicator()),
             floatingActionButton: FloatingActionButton(
                 backgroundColor: Theme.of(context).primaryColor,
                 onPressed: () {

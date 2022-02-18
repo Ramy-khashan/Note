@@ -49,6 +49,7 @@ class LoginScreen extends StatelessWidget {
                       height: size.longestSide * .01,
                     ),
                     TextFieldItem(
+                      validtion: (val) => controller.validation.email(val),
                       hint: "Email",
                       size: size,
                       value: controller.email,
@@ -57,6 +58,7 @@ class LoginScreen extends StatelessWidget {
                       height: size.longestSide * .02,
                     ),
                     TextFieldItem(
+                      validtion: (val) => controller.validation.password(val),
                       isPassword: true,
                       isSecure: controller.isSwitch,
                       hint: "Password",
@@ -64,19 +66,8 @@ class LoginScreen extends StatelessWidget {
                       size: size,
                       value: controller.password,
                     ),
-                    Row(
-                      children: [
-                        Checkbox(value: true, onChanged: (val) {}),
-                        Text(
-                          "Remember me",
-                          style: TextStyle(
-                              fontSize: size.shortestSide * .05,
-                              color: Colors.grey.shade700),
-                        )
-                      ],
-                    ),
                     SizedBox(
-                      height: size.longestSide * .02,
+                      height: size.longestSide * .075,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -85,7 +76,10 @@ class LoginScreen extends StatelessWidget {
                       child: ButtonItem(
                         size: size,
                         onPress: () async {
-                          await controller.login(context);
+                          if (controller.validation.formKey.currentState!
+                              .validate()) {
+                            await controller.login(context);
+                          }
                         },
                         name: "Login",
                       ),

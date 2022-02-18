@@ -38,12 +38,12 @@ dependencies:
   firebase_core: 
   cloud_firestore: 
   font_awesome_flutter: 
-  image_picker: 
   firebase_storage: 
   awesome_dialog: 
   bloc: 
   flutter_bloc: 
   intl: 
+  regexpattern: 
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,8 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note/classes/validation.dart';
+import 'package:note/screens/homepage/view.dart';
 import 'package:note/screens/login/states.dart';
 
 class LoginController extends Cubit<LoginStates> {
@@ -17,11 +19,19 @@ class LoginController extends Cubit<LoginStates> {
     isSwitch = !isSwitch;
   }
 
+  Validation validation = Validation();
   UserCredential? user;
   Future<void> login(context) async {
     try {
-      user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text, password: password.text);
+      user = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: email.text, password: password.text)
+          .then((value) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePageScreen()),
+            (route) => false);
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         AwesomeDialog(

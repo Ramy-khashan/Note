@@ -49,6 +49,7 @@ class RegisterScreen extends StatelessWidget {
                       height: size.longestSide * .01,
                     ),
                     TextFieldItem(
+                      validtion: (val) => controller.validation.userName(val),
                       hint: "Username",
                       size: size,
                       value: controller.userName,
@@ -57,6 +58,7 @@ class RegisterScreen extends StatelessWidget {
                       height: size.longestSide * .02,
                     ),
                     TextFieldItem(
+                      validtion: (val) => controller.validation.email(val),
                       hint: "Email",
                       size: size,
                       value: controller.email,
@@ -65,6 +67,7 @@ class RegisterScreen extends StatelessWidget {
                       height: size.longestSide * .02,
                     ),
                     TextFieldItem(
+                      validtion: (val) => controller.validation.password(val),
                       isPassword: true,
                       isSecure: controller.isSwitch,
                       hint: "Password",
@@ -72,19 +75,8 @@ class RegisterScreen extends StatelessWidget {
                       size: size,
                       value: controller.password,
                     ),
-                    Row(
-                      children: [
-                        Checkbox(value: true, onChanged: (val) {}),
-                        Text(
-                          "Remember me",
-                          style: TextStyle(
-                              fontSize: size.shortestSide * .05,
-                              color: Colors.grey.shade700),
-                        )
-                      ],
-                    ),
                     SizedBox(
-                      height: size.longestSide * .015,
+                      height: size.longestSide * .05,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -93,7 +85,10 @@ class RegisterScreen extends StatelessWidget {
                       child: ButtonItem(
                         size: size,
                         onPress: () async {
-                          await controller.register(context);
+                          if (controller.validation.formKey.currentState!
+                              .validate()) {
+                            await controller.register(context);
+                          }
                         },
                         name: "Register",
                       ),
@@ -106,20 +101,22 @@ class RegisterScreen extends StatelessWidget {
                               fontSize: size.shortestSide * .04,
                             )),
                         InkWell(
-                            onTap: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const LoginScreen()),
-                                  (route) => false);
-                            },
-                            child: Text("Login",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.blue,
-                                  fontSize: size.shortestSide * .04,
-                                )))
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()),
+                                (route) => false);
+                          },
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.blue,
+                              fontSize: size.shortestSide * .04,
+                            ),
+                          ),
+                        ),
                       ],
                     )
                   ],
