@@ -22,11 +22,13 @@ class HomePageController extends Cubit<HomePageState> {
     emit(ChangePositionState());
   }
 
-  bool isDoneLoad = false;
+  bool isDoneLoad = true;
   final uid = FirebaseAuth.instance.currentUser!.uid;
   List data = [];
   List docsId = [];
   getData() async {
+    isDoneLoad = false;
+    emit(LoadingDataState());
     FirebaseFirestore.instance
         .collection('note')
         .where("uid", isEqualTo: uid)
@@ -39,6 +41,10 @@ class HomePageController extends Cubit<HomePageState> {
       isDoneLoad = true;
       emit(DoneGetDataState());
     });
+    if (isDoneLoad == false) {
+      isDoneLoad = true;
+      emit(FaildgDataState());
+    }
   }
 
   deleteNote(context, index, size) {
